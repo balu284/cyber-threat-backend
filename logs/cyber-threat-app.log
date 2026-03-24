@@ -1,0 +1,17 @@
+2025-11-12T11:14:44.130+05:30  INFO 22948 --- [restartedMain] c.c.CyberThreatIntelligenceApplication   : Starting CyberThreatIntelligenceApplication using Java 21.0.7 with PID 22948 (C:\Users\balur\Downloads\cyber-threat-intelligence\cyber-threat-intelligence\target\classes started by balur in C:\Users\balur\Downloads\cyber-threat-intelligence\cyber-threat-intelligence)
+2025-11-12T11:14:44.131+05:30  INFO 22948 --- [restartedMain] c.c.CyberThreatIntelligenceApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-11-12T11:14:44.662+05:30  WARN 22948 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'passwordEncoder' defined in class path resource [com/cyberthreat/config/SecurityConfig.class]: Cannot register bean definition [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/cyberthreat/config/SecurityConfig.class]] for bean 'passwordEncoder' since there is already [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=advancedSecurityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/cyberthreat/config/AdvancedSecurityConfig.class]] bound.
+2025-11-12T11:14:44.687+05:30 ERROR 22948 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'passwordEncoder', defined in class path resource [com/cyberthreat/config/SecurityConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/cyberthreat/config/AdvancedSecurityConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Cyber Threat Intelligence</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #e9ecef;
+        }
+        .feature {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛡️ Welcome to Cyber Threat Intelligence</h1>
+        <p>Your journey to better security starts now!</p>
+    </div>
+    
+    <div class="content">
+        <h2>Hello, <span th:text="${username}">User</span>!</h2>
+        <p>Welcome to the Cyber Threat Intelligence platform. We're excited to have you on board and help protect your digital assets.</p>
+        
+        <h3>What you can do with our platform:</h3>
+        
+        <div class="feature">
+            <strong>🔍 Real-time Threat Monitoring</strong>
+            <p>Monitor global threat intelligence feeds in real-time</p>
+        </div>
+        
+        <div class="feature">
+            <strong>💻 Device Protection</strong>
+            <p>Register your devices and receive instant threat alerts</p>
+        </div>
+        
+        <div class="feature">
+            <strong>📊 Advanced Analytics</strong>
+            <p>View detailed threat statistics and trends</p>
+        </div>
+        
+        <div class="feature">
+            <strong>🚨 Instant Alerts</strong>
+            <p>Get immediate notifications when threats are detected</p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="http://localhost:8080/dashboard" class="btn">Get Started with Your Dashboard</a>
+        </div>
+        
+        <div style="background: #e8f4fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h4 style="margin-top: 0;">Next Steps:</h4>
+            <ol>
+                <li>Complete your profile setup</li>
+                <li>Register your first device for monitoring</li>
+                <li>Configure your notification preferences</li>
+                <li>Explore the threat intelligence dashboard</li>
+            </ol>
+        </div>
+        
+        <p>If you have any questions or need assistance, don't hesitate to contact our support team.</p>
+        
+        <p>Stay secure,<br>The Cyber Threat Intelligence Team</p>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 Cyber Threat Intelligence System. All rights reserved.</p>
+        <p>This is an automated welcome message. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>

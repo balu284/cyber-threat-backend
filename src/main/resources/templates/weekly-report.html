@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Security Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #e9ecef;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .threat-breakdown {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+        .recommendations {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .critical { border-left-color: #e74c3c; background: #fdedec; }
+        .high { border-left-color: #e67e22; background: #fef5e7; }
+        .medium { border-left-color: #f39c12; background: #fef9e7; }
+        .low { border-left-color: #27ae60; background: #eafaf1; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Weekly Security Report</h1>
+        <p>Hello, <span th:text="${username}">User</span>! Here's your security overview for the week</p>
+        <p style="font-size: 14px; opacity: 0.9;" th:text="${'Report Period: ' + #temporals.format(reportDate, 'MMMM dd, yyyy')}">Report Period</p>
+    </div>
+    
+    <div class="content">
+        <h2>Security Overview</h2>
+        <p>Here's a summary of security events and threats detected across your monitored devices this week.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${stats.totalThreats}">0</div>
+                <div class="stat-label">Total Threats Detected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${stats.criticalThreats}">0</div>
+                <div class="stat-label">Critical Threats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${stats.devicesProtected}">0</div>
+                <div class="stat-label">Protected Devices</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${stats.threatsBlocked}">0</div>
+                <div class="stat-label">Threats Blocked</div>
+            </div>
+        </div>
+        
+        <div class="threat-breakdown">
+            <h3>🛡️ Threat Breakdown</h3>
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                    <span>Malicious IP Addresses:</span>
+                    <strong th:text="${stats.ipThreats}">0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                    <span>Suspicious Domains:</span>
+                    <strong th:text="${stats.domainThreats}">0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                    <span>Malicious URLs:</span>
+                    <strong th:text="${stats.urlThreats}">0</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                    <span>File Hash Threats:</span>
+                    <strong th:text="${stats.hashThreats}">0</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recommendations">
+            <h3>💡 Security Recommendations</h3>
+            <ul>
+                <li>Ensure all devices have the latest security updates installed</li>
+                <li>Review and update your firewall rules if necessary</li>
+                <li>Conduct regular security awareness training</li>
+                <li>Backup critical data regularly</li>
+                <li>Verify that all security agents are running properly</li>
+            </ul>
+        </div>
+        
+        <div style="background: #d5f4e6; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4 style="margin: 0; color: #27ae60;">✅ System Status: Protected</h4>
+            <p style="margin: 5px 0 0 0; color: #2ecc71;">Your security systems are actively monitoring and protecting your environment.</p>
+        </div>
+        
+        <div style="text-align: center; margin: 25px 0;">
+            <a href="http://localhost:8080/dashboard" style="display: inline-block; padding: 12px 25px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                View Detailed Dashboard
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 Cyber Threat Intelligence System. All rights reserved.</p>
+        <p>This is an automated weekly security report. To adjust your notification preferences, visit your account settings.</p>
+        <p style="font-size: 11px; color: #95a5a6;">
+            Report generated on <span th:text="${#temporals.format(reportDate, 'MMMM dd, yyyy')}">date</span>
+        </p>
+    </div>
+</body>
+</html>
