@@ -1,14 +1,22 @@
-# Use Eclipse Temurin OpenJDK 17
-FROM eclipse-temurin:17-jdk-jammy
+# Build stage
+FROM maven:3.8-openjdk-17-slim AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy the jar file
-COPY target/*.jar app.jar
+# Copy all files
+COPY . .
 
-# Expose the port
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Run stage
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /app
+
+# Copy the jar from builder
+COPY --from=builder /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
