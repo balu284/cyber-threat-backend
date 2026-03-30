@@ -20,7 +20,6 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // ===================== SPRING SECURITY - LOAD BY USERNAME =====================
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
@@ -40,7 +39,6 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    // ===================== NEW: LOAD USER BY EMAIL =====================
     public UserDetails loadUserByEmail(String email)
             throws UsernameNotFoundException {
 
@@ -49,7 +47,7 @@ public class UserService implements UserDetailsService {
                         new UsernameNotFoundException("User not found with email: " + email));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())  // Return username, not email
+                .withUsername(user.getUsername())
                 .password(user.getPassword() != null ? user.getPassword() : "")
                 .authorities(user.getRole().name())
                 .accountExpired(false)
@@ -59,7 +57,6 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    // ===================== USER OPERATIONS =====================
     public User saveUser(User user) {
         return userRepository.save(user);
     }
@@ -76,7 +73,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    // ===================== PASSWORD =====================
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
