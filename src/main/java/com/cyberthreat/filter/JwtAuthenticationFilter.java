@@ -6,7 +6,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,18 +18,19 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public JwtAuthenticationFilter(JwtService jwtService, UserService userService) {
+        this.jwtService = jwtService;
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, 
                                   HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
         
-        // Skip filter for OPTIONS requests (preflight)
         if ("OPTIONS".equals(request.getMethod())) {
             filterChain.doFilter(request, response);
             return;
@@ -38,7 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
         final String authHeader = request.getHeader("Authorization");
         
-        // If no auth header, just continue - let Spring Security handle it
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -55,11 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 try {
                     userDetails = this.userService.loadUserByUsername(username);
                 } catch (UsernameNotFoundException e) {
-                    try {
-                        userDetails = this.userService.loadUserByEmail(username);
-                    } catch (UsernameNotFoundException ex) {
-                        System.err.println("User not found with username or email: " + username);
-                    }
+                    System.err.println("User not found: " + username);
                 }
                 
                 if (userDetails != null && jwtService.validateToken(jwt, userDetails)) {
@@ -71,9 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Log error but don't throw - let the request continue as unauthenticated
             System.err.println("JWT authentication error: " + e.getMessage());
-            // Don't set authentication, just continue
         }
         
         filterChain.doFilter(request, response);
